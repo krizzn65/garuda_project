@@ -1,32 +1,27 @@
 <?php
 
-namespace App\Filament\Resources\Airports\Tables;
+namespace App\Filament\Resources\Airlines\Tables;
 
 use Filament\Actions\BulkActionGroup;
-use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ForceDeleteBulkAction;
 use Filament\Actions\RestoreBulkAction;
-use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 
-class AirportsTable
+class AirlinesTable
 {
     public static function configure(Table $table): Table
     {
         return $table
             ->columns([
-                TextColumn::make('iata_code')
+                TextColumn::make('logo')
                     ->searchable(),
                 TextColumn::make('name')
                     ->searchable(),
-                ImageColumn::make('image'),
-                TextColumn::make('city')
-                    ->searchable(),
-                TextColumn::make('country')
+                TextColumn::make('code')
                     ->searchable(),
                 TextColumn::make('deleted_at')
                     ->dateTime()
@@ -46,7 +41,6 @@ class AirportsTable
             ])
             ->recordActions([
                 EditAction::make(),
-                DeleteAction::make(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
