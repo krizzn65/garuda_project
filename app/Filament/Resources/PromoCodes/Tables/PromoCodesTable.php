@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Filament\Resources\Airports\Tables;
+namespace App\Filament\Resources\PromoCodes\Tables;
 
+use App\Models\PromoCode;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
@@ -9,30 +10,32 @@ use Filament\Actions\EditAction;
 use Filament\Actions\ForceDeleteBulkAction;
 use Filament\Actions\RestoreBulkAction;
 use Filament\Actions\ViewAction;
-use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 
-class AirportsTable
+class PromoCodesTable
 {
     public static function configure(Table $table): Table
     {
         return $table
             ->columns([
-                TextColumn::make('iata_code')
+                TextColumn::make('code')
                     ->searchable(),
-                TextColumn::make('name')
-                    ->searchable(),
-                ImageColumn::make('image'),
-                TextColumn::make('city')
-                    ->searchable(),
-                TextColumn::make('country')
-                    ->searchable(),
-                TextColumn::make('deleted_at')
+                TextColumn::make('discount_type')
+                    ->badge(),
+                TextColumn::make('discount')
+                    ->formatStateUsing(fn (PromoCode $record): string => match ($record->discount_type) {
+                        'percentage' => $record->discount.'%',
+                        'fixed' => 'Rp '.number_format($record->discount, 0, ',', '.'),
+                        default => (string) $record->discount,
+                    }),
+                TextColumn::make('valid_until')
                     ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->sortable(),
+                IconColumn::make('is_used')
+                    ->boolean(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\Airports\Tables;
+namespace App\Filament\Resources\Facilities\Tables;
 
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
@@ -14,20 +14,16 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 
-class AirportsTable
+class FacilitiesTable
 {
     public static function configure(Table $table): Table
     {
         return $table
             ->columns([
-                TextColumn::make('iata_code')
-                    ->searchable(),
+                ImageColumn::make('image'),
                 TextColumn::make('name')
                     ->searchable(),
-                ImageColumn::make('image'),
-                TextColumn::make('city')
-                    ->searchable(),
-                TextColumn::make('country')
+                TextColumn::make('description')
                     ->searchable(),
                 TextColumn::make('deleted_at')
                     ->dateTime()

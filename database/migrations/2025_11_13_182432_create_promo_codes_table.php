@@ -19,6 +19,7 @@ return new class extends Migration
             $table->dateTime('valid_until');
             $table->boolean('is_used')->default(false);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
