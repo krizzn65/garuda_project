@@ -12,7 +12,7 @@ class AirlineForm
     {
         return $schema
             ->components([
-                FileUpload::make('Logo')
+                FileUpload::make('logo')
                     ->image()
                     ->directory('airlines')
                     ->required()
