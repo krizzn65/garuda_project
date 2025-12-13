@@ -2,10 +2,10 @@
 
 namespace App\Repositories;
 
-use App\Interfaces\AirlinesRepositoryinterface;
+use App\Interfaces\AirlinesRepositoryInterface;
 use App\Models\Airline;
 
-class AirlineRepository implements AirlinesRepositoryinterface
+class AirlineRepository implements AirlinesRepositoryInterface
 {
     public function getAllAirlines()
     {
