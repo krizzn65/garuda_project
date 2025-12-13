@@ -256,15 +256,18 @@
                             </div>
                         </div>
                         <div class="flex flex-col gap-[2px] items-center justify-center">
-                            <p class="text-sm text-garuda-grey">3 hours</p>
+                            <p class="text-sm text-garuda-grey">{{number_format($flight->segments->first()->time->diffInHours($flight->segments->last()->time), 0)}} 
+                                hours</p>
                             <div class="flex items-center gap-[6px]">
-                                <p class="font-semibold">CGK</p>
+                                <p class="font-semibold">{{$flight->segments->first()->airport->iata_code}}</p>
                                 <img src="assets/images/icons/direct-black.svg" alt="icon">
-                                <p class="font-semibold">HND</p>
+                                <p class="font-semibold">{{$flight->segments->last()->airport->iata_code}}</p>
                             </div>
                             <p class="text-sm text-garuda-grey">Direct</p>
                         </div>
-                        <p class="min-w-[120px] font-semibold text-garuda-green text-center">Rp 24.560.341</p>
+                        <p class="min-w-[120px] font-semibold text-garuda-green text-center">
+                            {{'Rp. ' . number_format($flight->classes->first()->price, 0, ',', '.')}}
+                        </p>
                         <a href="choose-tiers.html"
                             class="rounded-full py-3 px-5 text-center bg-garuda-blue hover:shadow-[0px_14px_30px_0px_#0068FF66] transition-all duration-300">
                             <span class="font-semibold text-white">Choose</span>
@@ -275,34 +278,34 @@
                         <div class="left-content flex flex-col gap-[10px]">
                             <div class="departure flex items-center gap-5">
                                 <div class="text-center w-[83px]">
-                                    <p class="font-semibold">08:30</p>
-                                    <p class="text-sm text-garuda-grey mt-[2px]">15 Sep 2024</p>
+                                    <p class="font-semibold">{{$flight->segments->first()->time->format('H:i')}}</p>
+                                    <p class="text-sm text-garuda-grey mt-[2px]">{{$flight->segments->first()->time->format('d F y')}}</p>
                                 </div>
                                 <div class="flex items-center gap-4">
                                     <img src="assets/images/icons/departure.svg" class="w-[50px] h-[50px] flex shrink-0"
                                         alt="icon">
                                     <div>
                                         <p class="text-sm text-garuda-grey mt-[2px]">Departure</p>
-                                        <p class="font-semibold">Jakarta (CGK)</p>
+                                        <p class="font-semibold">{{$flight->segments->first()->airport->name}} ({{$flight->segments->first()->airport->iata_code}})</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="time flex flex-col items-center w-[83px]">
                                 <div class="h-8 border border-garuda-black border-dashed"></div>
-                                <p class="text-xs leading-[18px] text-garuda-grey">3 hours</p>
+                                <p class="text-xs leading-[18px] text-garuda-grey">{{number_format($flight->segments->first()->time->diffInHours($flight->segments->last()->time), 0)}} hours</p>
                                 <div class="h-8 border border-garuda-black border-dashed"></div>
                             </div>
                             <div class="arrival flex items-center gap-5">
                                 <div class="text-center w-[83px]">
-                                    <p class="font-semibold">12:00</p>
-                                    <p class="text-sm text-garuda-grey mt-[2px]">15 Sep 2024</p>
+                                    <p class="font-semibold">{{$flight->segments->last()->time->format('H:i')}}</p>
+                                    <p class="text-sm text-garuda-grey mt-[2px]">{{$flight->segments->last()->time->format('d F y')}}</p>
                                 </div>
                                 <div class="flex items-center gap-4">
                                     <img src="assets/images/icons/arrival.svg" class="w-[50px] h-[50px] flex shrink-0"
                                         alt="icon">
                                     <div>
                                         <p class="text-sm text-garuda-grey mt-[2px]">Arrival</p>
-                                        <p class="font-semibold">Tokyo (HND)</p>
+                                        <p class="font-semibold">{{$flight->segments->last()->airport->name}} ({{$flight->segments->last()->airport->iata_code}})</p>
                                     </div>
                                 </div>
                             </div>
