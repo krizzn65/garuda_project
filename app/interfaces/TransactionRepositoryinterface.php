@@ -2,7 +2,7 @@
 
 namespace App\Interfaces;
 
-interface TransactionRepositoryinterface
+interface TransactionRepositoryInterface
 {
     public function getTransactionDataFromSession();
 

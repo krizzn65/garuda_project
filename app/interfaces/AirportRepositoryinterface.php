@@ -2,7 +2,7 @@
 
 namespace App\Interfaces;
 
-interface AirportRepositoryinterface
+interface AirportRepositoryInterface
 {
     public function getAllAirports();
 

@@ -3,9 +3,9 @@
 namespace App\Repositories;
 
 use App\Models\Flight;
-use App\Interfaces\FlightRepositoryinterface;
+use App\Interfaces\FlightRepositoryInterface;
 
-class FlightRepository implements FlightRepositoryinterface
+class FlightRepository implements FlightRepositoryInterface
 {
     public function getAllFlights($filter = null)
     {

@@ -3,13 +3,13 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Interfaces\AirportRepositoryinterface;
-use App\Repositories\AiportRepository;
-use App\Interfaces\AirlinesRepositoryinterface;
+use App\Interfaces\AirportRepositoryInterface;
+use App\Repositories\AirportRepository;
+use App\Interfaces\AirlinesRepositoryInterface;
 use App\Repositories\AirlineRepository;
-use App\Interfaces\FlightRepositoryinterface;
+use App\Interfaces\FlightRepositoryInterface;
 use App\Repositories\FlightRepository;
-use App\Interfaces\TransactionRepositoryinterface;
+use App\Interfaces\TransactionRepositoryInterface;
 use App\Repositories\TransactionRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -19,10 +19,10 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(AirportRepositoryinterface::class, AiportRepository::class);
-        $this->app->bind(AirlineRepositoryinterface::class, AirlineRepository::class);
-        $this->app->bind(FlightRepositoryinterface::class, FlightRepository::class);
-        $this->app->bind(TransactionRepositoryinterface::class, TransactionRepository::class);
+        $this->app->bind(AirportRepositoryInterface::class, AirportRepository::class);
+        $this->app->bind(AirlinesRepositoryInterface::class, AirlineRepository::class);
+        $this->app->bind(FlightRepositoryInterface::class, FlightRepository::class);
+        $this->app->bind(TransactionRepositoryInterface::class, TransactionRepository::class);
     }
 
     /**

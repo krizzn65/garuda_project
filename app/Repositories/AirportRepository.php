@@ -2,10 +2,10 @@
 
 namespace App\Repositories;
 
-use App\Interfaces\AirportRepositoryinterface;
+use App\Interfaces\AirportRepositoryInterface;
 use App\Models\Airport;
 
-class AiportRepository implements AirportRepositoryinterface
+class AirportRepository implements AirportRepositoryInterface
 {
     public function getAllAirports()
     {

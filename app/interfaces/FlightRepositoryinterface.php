@@ -2,7 +2,7 @@
 
 namespace App\Interfaces;
 
-interface FlightRepositoryinterface
+interface FlightRepositoryInterface
 {
     public function getAllFlights($filter = null);
 
