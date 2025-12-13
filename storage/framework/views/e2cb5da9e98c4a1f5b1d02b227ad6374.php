@@ -114,22 +114,23 @@
                         <label class="accordion-trigger flex items-center justify-between">
                             <input type="checkbox" name="accordion-input" class="hidden" checked>
                             <div class="flex items-center gap-[10px]">
-                                <img src="assets/images/logos/ana.svg" class="w-[60px] h-[60px] flex shrink-0" alt="logo">
-                                <div>
-                                    <p class="font-semibold">Angga Air</p>
-                                    <p class="text-sm text-garuda-grey mt-[2px]">08:30 - 12:00</p>
-                                </div>
+                                <img src="<?php echo e(asset ('/storage/' . $flight->airline->logo)); ?>"
+                                class="w-[60px] h-[60px] flex shrink-0" alt="logo">
+                            <div>
+                                <p class="font-semibold"><?php echo e($flight->airline->name); ?></p>
+                                <p class="text-sm text-garuda-grey mt-[2px]"><?php echo e($flight->segments->first()->time->format('H:i')); ?> - 
+                                    <?php echo e($flight->segments->last()->time->format('H:i')); ?></p>
                             </div>
                             <div class="flex flex-col gap-[2px] items-center justify-center">
-                                <p class="text-sm text-garuda-grey">12 hours</p>
+                                <p class="text-sm text-garuda-grey"><?php echo e(number_format($flight->segments->first()->time->diffInHours($flight->segments->last()->time), 0)); ?> hours</p>
                                 <div class="flex items-center gap-[6px]">
-                                    <p class="font-semibold">CGK</p>
+                                    <p class="font-semibold"><?php echo e($flight->segments->first()->airport->iata_code); ?> </p>
                                     <img src="assets/images/icons/transit-black.svg" alt="icon">
-                                    <p class="font-semibold">HND</p>
+                                    <p class="font-semibold"><?php echo e($flight->segments->last()->airport->iata_code); ?></p>
                                 </div>
-                                <p class="text-sm text-garuda-grey">Transit 1x</p>
+                                <p class="text-sm text-garuda-grey">Transit <?php echo e($flight->segments->count() - 2); ?>x</p>
                             </div>
-                            <p class="min-w-[120px] font-semibold text-garuda-green text-center">Rp 4.560.341</p>
+                            <p class="min-w-[120px] font-semibold text-garuda-green text-center"><?php echo e('Rp. ' . number_format($flight->classes->first()->price, 0, ',', '.')); ?></p>
                             <a href="choose-tiers.html"
                                 class="rounded-full py-3 px-5 text-center bg-garuda-blue hover:shadow-[0px_14px_30px_0px_#0068FF66] transition-all duration-300">
                                 <span class="font-semibold text-white">Choose</span>
@@ -138,108 +139,47 @@
                         <hr class="border-[#E8EFF7]">
                         <div class="accordion-content flex justify-between">
                             <div class="left-content flex flex-col gap-[10px]">
-                                <div class="departure flex items-center gap-5">
+                                <?php $__currentLoopData = $flight->segments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $segment): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <div class="<?php echo e($loop->first ? 'departure' : ($loop->last ? 'arrival' : 'transit')); ?> flex items-center gap-5" >
                                     <div class="text-center w-[83px]">
-                                        <p class="font-semibold">08:30</p>
-                                        <p class="text-sm text-garuda-grey mt-[2px]">15 Sep 2024</p>
+                                        <p class="font-semibold"><?php echo e($segment->time->format('H:i')); ?></p>
+                                        <p class="text-sm mt-[2px] text-garuda-grey"><?php echo e($segment->time->format('d M Y')); ?></p>
                                     </div>
                                     <div class="flex items-center gap-4">
-                                        <img src="assets/images/icons/departure.svg" class="w-[50px] h-[50px] flex shrink-0"
-                                            alt="icon">
+                                        <img src="assets/images/icons/<?php echo e($loop->first ? 'departure' : ($loop->last ? 'arrival' : 'transit-round-black')); ?>.svg" class="w-[50px] h-[50px] flex shrink-0" alt="icon">
                                         <div>
-                                            <p class="text-sm text-garuda-grey mt-[2px]">Departure</p>
-                                            <p class="font-semibold">Jakarta (CGK)</p>
+                                            <p class="text-sm text-garuda-grey mt-[2px]"><?php echo e($loop->first ? 'Departure' : ($loop->last ? 'Arrival' : 'Transit')); ?></p>
+                                            <p class="text-sm mt-[2px] text-garuda-grey"><?php echo e($segment->airport->name); ?>
+
+                                                <?php echo e($segment->airport->iata_code); ?>
+
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
+                                <?php if($loop->last): ?>
                                 <div class="time flex flex-col items-center w-[83px]">
                                     <div class="h-8 border border-garuda-black border-dashed"></div>
-                                    <p class="text-xs leading-[18px] text-garuda-grey">3 hours</p>
+                                    <p class="text-xs leading-[18px] text-garuda-grey"><?php echo e(number_format($segment->time->diffInHours($flight->segments[$loop->index + 1]->time), 0)); ?> hours</p>
                                     <div class="h-8 border border-garuda-black border-dashed"></div>
                                 </div>
-                                <div class="transit flex items-center gap-5">
-                                    <div class="text-center w-[83px]">
-                                        <p class="font-semibold">12:00</p>
-                                        <p class="text-sm text-garuda-grey mt-[2px]">15 Sep 2024</p>
-                                    </div>
-                                    <div class="flex items-center gap-4">
-                                        <img src="assets/images/icons/transit-round-black.svg"
-                                            class="w-[50px] h-[50px] flex shrink-0" alt="icon">
-                                        <div>
-                                            <p class="text-sm text-garuda-grey mt-[2px]">Transit</p>
-                                            <p class="font-semibold">Bangkok (BKK)</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="time flex flex-col items-center w-[83px]">
-                                    <div class="h-8 border border-garuda-black border-dashed"></div>
-                                    <p class="text-xs leading-[18px] text-garuda-grey">3 hours</p>
-                                    <div class="h-8 border border-garuda-black border-dashed"></div>
-                                </div>
-                                <div class="arrival flex items-center gap-5">
-                                    <div class="text-center w-[83px]">
-                                        <p class="font-semibold">12:00</p>
-                                        <p class="text-sm text-garuda-grey mt-[2px]">15 Sep 2024</p>
-                                    </div>
-                                    <div class="flex items-center gap-4">
-                                        <img src="assets/images/icons/arrival.svg" class="w-[50px] h-[50px] flex shrink-0"
-                                            alt="icon">
-                                        <div>
-                                            <p class="text-sm text-garuda-grey mt-[2px]">Arrival</p>
-                                            <p class="font-semibold">Tokyo (HND)</p>
-                                        </div>
-                                    </div>
+                                <?php endif; ?>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            </div>
+                             <div
+                            class="grid grid-cols-2 w-[320px] shrink-0 h-fit p-5 gap-y-6 justify-between rounded-[30px] bg-garuda-bg-grey">
+                            <?php $__currentLoopData = $flight->classes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $class): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <?php $__currentLoopData = $class->facilities; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $facility): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <div class="flex items-center gap-3 even:w-[139px] shrink-0">
+                                <img src="<?php echo e(asset('storage/' . $facility->image)); ?>" class="w-6 h-6 flex shrink-0" alt="icon">
+                                <div>
+                                    <p class="font-semibold text-sm"><?php echo e($facility->name); ?></p>
+                                    <p class="text-xs leading-[18px] text-garuda-grey">Included</p>
                                 </div>
                             </div>
-                            <div
-                                class="grid grid-cols-2 w-[320px] shrink-0 h-fit p-5 gap-y-6 justify-between rounded-[30px] bg-garuda-bg-grey">
-                                <div class="flex items-center gap-3 even:w-[139px] shrink-0">
-                                    <img src="assets/images/icons/box-black.svg" class="w-6 h-6 flex shrink-0" alt="icon">
-                                    <div>
-                                        <p class="font-semibold text-sm">Baggages</p>
-                                        <p class="text-xs leading-[18px] text-garuda-grey">Included</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-center gap-3 even:w-[139px] shrink-0">
-                                    <img src="assets/images/icons/video-play-black.svg" class="w-6 h-6 flex shrink-0"
-                                        alt="icon">
-                                    <div>
-                                        <p class="font-semibold text-sm">Entertainment</p>
-                                        <p class="text-xs leading-[18px] text-garuda-grey">Included</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-center gap-3 even:w-[139px] shrink-0">
-                                    <img src="assets/images/icons/electricity-black.svg" class="w-6 h-6 flex shrink-0"
-                                        alt="icon">
-                                    <div>
-                                        <p class="font-semibold text-sm">USB C Port</p>
-                                        <p class="text-xs leading-[18px] text-garuda-grey">Included</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-center gap-3 even:w-[139px] shrink-0">
-                                    <img src="assets/images/icons/coffee-black.svg" class="w-6 h-6 flex shrink-0"
-                                        alt="icon">
-                                    <div>
-                                        <p class="font-semibold text-sm">Heavy Meals</p>
-                                        <p class="text-xs leading-[18px] text-garuda-grey">Included</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-center gap-3 even:w-[139px] shrink-0">
-                                    <img src="assets/images/icons/security-user-black.svg" class="w-6 h-6 flex shrink-0"
-                                        alt="icon">
-                                    <div>
-                                        <p class="font-semibold text-sm">Lifeguard</p>
-                                        <p class="text-xs leading-[18px] text-garuda-grey">Included</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-center gap-3 even:w-[139px] shrink-0">
-                                    <img src="assets/images/icons/wifi-black.svg" class="w-6 h-6 flex shrink-0" alt="icon">
-                                    <div>
-                                        <p class="font-semibold text-sm">Wi-fi Onboard</p>
-                                        <p class="text-xs leading-[18px] text-garuda-grey">Included</p>
-                                    </div>
-                                </div>
-                            </div>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        </div>
                         </div>
                     </div>
                     <?php else: ?> <div
@@ -251,19 +191,24 @@
                                 class="w-[60px] h-[60px] flex shrink-0" alt="logo">
                             <div>
                                 <p class="font-semibold"><?php echo e($flight->airline->name); ?></p>
-                                <p class="text-sm text-garuda-grey mt-[2px]"><?php echo e($flight->segments->first()->time->format('H:i')); ?> - 12:00</p>
+                                <p class="text-sm text-garuda-grey mt-[2px]"><?php echo e($flight->segments->first()->time->format('H:i')); ?> - 
+                                    <?php echo e($flight->segments->last()->time->format('H:i')); ?></p>
                             </div>
                         </div>
                         <div class="flex flex-col gap-[2px] items-center justify-center">
-                            <p class="text-sm text-garuda-grey">3 hours</p>
+                            <p class="text-sm text-garuda-grey"><?php echo e(number_format($flight->segments->first()->time->diffInHours($flight->segments->last()->time), 0)); ?> 
+                                hours</p>
                             <div class="flex items-center gap-[6px]">
-                                <p class="font-semibold">CGK</p>
+                                <p class="font-semibold"><?php echo e($flight->segments->first()->airport->iata_code); ?></p>
                                 <img src="assets/images/icons/direct-black.svg" alt="icon">
-                                <p class="font-semibold">HND</p>
+                                <p class="font-semibold"><?php echo e($flight->segments->last()->airport->iata_code); ?></p>
                             </div>
                             <p class="text-sm text-garuda-grey">Direct</p>
                         </div>
-                        <p class="min-w-[120px] font-semibold text-garuda-green text-center">Rp 24.560.341</p>
+                        <p class="min-w-[120px] font-semibold text-garuda-green text-center">
+                            <?php echo e('Rp. ' . number_format($flight->classes->first()->price, 0, ',', '.')); ?>
+
+                        </p>
                         <a href="choose-tiers.html"
                             class="rounded-full py-3 px-5 text-center bg-garuda-blue hover:shadow-[0px_14px_30px_0px_#0068FF66] transition-all duration-300">
                             <span class="font-semibold text-white">Choose</span>
@@ -274,86 +219,51 @@
                         <div class="left-content flex flex-col gap-[10px]">
                             <div class="departure flex items-center gap-5">
                                 <div class="text-center w-[83px]">
-                                    <p class="font-semibold">08:30</p>
-                                    <p class="text-sm text-garuda-grey mt-[2px]">15 Sep 2024</p>
+                                    <p class="font-semibold"><?php echo e($flight->segments->first()->time->format('H:i')); ?></p>
+                                    <p class="text-sm text-garuda-grey mt-[2px]"><?php echo e($flight->segments->first()->time->format('d F y')); ?></p>
                                 </div>
                                 <div class="flex items-center gap-4">
                                     <img src="assets/images/icons/departure.svg" class="w-[50px] h-[50px] flex shrink-0"
                                         alt="icon">
                                     <div>
                                         <p class="text-sm text-garuda-grey mt-[2px]">Departure</p>
-                                        <p class="font-semibold">Jakarta (CGK)</p>
+                                        <p class="font-semibold"><?php echo e($flight->segments->first()->airport->name); ?> (<?php echo e($flight->segments->first()->airport->iata_code); ?>)</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="time flex flex-col items-center w-[83px]">
                                 <div class="h-8 border border-garuda-black border-dashed"></div>
-                                <p class="text-xs leading-[18px] text-garuda-grey">3 hours</p>
+                                <p class="text-xs leading-[18px] text-garuda-grey"><?php echo e(number_format($flight->segments->first()->time->diffInHours($flight->segments->last()->time), 0)); ?> hours</p>
                                 <div class="h-8 border border-garuda-black border-dashed"></div>
                             </div>
                             <div class="arrival flex items-center gap-5">
                                 <div class="text-center w-[83px]">
-                                    <p class="font-semibold">12:00</p>
-                                    <p class="text-sm text-garuda-grey mt-[2px]">15 Sep 2024</p>
+                                    <p class="font-semibold"><?php echo e($flight->segments->last()->time->format('H:i')); ?></p>
+                                    <p class="text-sm text-garuda-grey mt-[2px]"><?php echo e($flight->segments->last()->time->format('d F y')); ?></p>
                                 </div>
                                 <div class="flex items-center gap-4">
                                     <img src="assets/images/icons/arrival.svg" class="w-[50px] h-[50px] flex shrink-0"
                                         alt="icon">
                                     <div>
                                         <p class="text-sm text-garuda-grey mt-[2px]">Arrival</p>
-                                        <p class="font-semibold">Tokyo (HND)</p>
+                                        <p class="font-semibold"><?php echo e($flight->segments->last()->airport->name); ?> (<?php echo e($flight->segments->last()->airport->iata_code); ?>)</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div
                             class="grid grid-cols-2 w-[320px] shrink-0 h-fit p-5 gap-y-6 justify-between rounded-[30px] bg-garuda-bg-grey">
+                            <?php $__currentLoopData = $flight->classes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $class): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <?php $__currentLoopData = $class->facilities; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $facility): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <div class="flex items-center gap-3 even:w-[139px] shrink-0">
-                                <img src="assets/images/icons/box-black.svg" class="w-6 h-6 flex shrink-0" alt="icon">
+                                <img src="<?php echo e(asset('storage/' . $facility->image)); ?>" class="w-6 h-6 flex shrink-0" alt="icon">
                                 <div>
-                                    <p class="font-semibold text-sm">Baggages</p>
+                                    <p class="font-semibold text-sm"><?php echo e($facility->name); ?></p>
                                     <p class="text-xs leading-[18px] text-garuda-grey">Included</p>
                                 </div>
                             </div>
-                            <div class="flex items-center gap-3 even:w-[139px] shrink-0">
-                                <img src="assets/images/icons/video-play-black.svg" class="w-6 h-6 flex shrink-0"
-                                    alt="icon">
-                                <div>
-                                    <p class="font-semibold text-sm">Entertainment</p>
-                                    <p class="text-xs leading-[18px] text-garuda-grey">Included</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-3 even:w-[139px] shrink-0">
-                                <img src="assets/images/icons/electricity-black.svg" class="w-6 h-6 flex shrink-0"
-                                    alt="icon">
-                                <div>
-                                    <p class="font-semibold text-sm">USB C Port</p>
-                                    <p class="text-xs leading-[18px] text-garuda-grey">Included</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-3 even:w-[139px] shrink-0">
-                                <img src="assets/images/icons/coffee-black.svg" class="w-6 h-6 flex shrink-0"
-                                    alt="icon">
-                                <div>
-                                    <p class="font-semibold text-sm">Heavy Meals</p>
-                                    <p class="text-xs leading-[18px] text-garuda-grey">Included</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-3 even:w-[139px] shrink-0">
-                                <img src="assets/images/icons/security-user-black.svg" class="w-6 h-6 flex shrink-0"
-                                    alt="icon">
-                                <div>
-                                    <p class="font-semibold text-sm">Lifeguard</p>
-                                    <p class="text-xs leading-[18px] text-garuda-grey">Included</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-3 even:w-[139px] shrink-0">
-                                <img src="assets/images/icons/wifi-black.svg" class="w-6 h-6 flex shrink-0" alt="icon">
-                                <div>
-                                    <p class="font-semibold text-sm">Wi-fi Onboard</p>
-                                    <p class="text-xs leading-[18px] text-garuda-grey">Included</p>
-                                </div>
-                            </div>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </div>
                     </div>
                 </div>
