@@ -157,6 +157,13 @@
                                         </div>
                                     </div>
                                 </div>
+                                <?php if($loop->last): ?>
+                                <div class="time flex flex-col items-center w-[83px]">
+                                    <div class="h-8 border border-garuda-black border-dashed"></div>
+                                    <p class="text-xs leading-[18px] text-garuda-grey"><?php echo e(number_format($segment->time->diffInHours($flight->segments[$loop->index + 1]->time), 0)); ?> hours</p>
+                                    <div class="h-8 border border-garuda-black border-dashed"></div>
+                                </div>
+                                <?php endif; ?>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </div>
                              <div
