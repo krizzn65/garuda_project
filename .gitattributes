@@ -10,11 +10,11 @@
 CHANGELOG.md export-ignore
 .styleci.yml export-ignore
 
-# Force GitHub to recognize PHP files correctly (not Hack language)
+
 *.php linguist-language=PHP
 *.blade.php linguist-language=Blade
 
-# Exclude vendor directories from language statistics
+
 vendor/* linguist-vendored
 node_modules/* linguist-vendored
 public/vendor/* linguist-vendored

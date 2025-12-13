@@ -3,12 +3,17 @@
 <?php $__env->startSection('content'); ?>
 <main class="relative flex flex-col w-full max-w-[1280px] px-[75px] mx-auto mt-[50px] mb-[62px]">
         <h1 class="font-extrabold text-[50px] leading-[75px]">Flight Search</h1>
+        <?php if(request()->departure || request()->arrival || request()->date || request()->quantity): ?>
         <div class="flex w-fit rounded-[20px] p-5 gap-[30px] bg-white mt-5">
-
             <?php if(request()->departure): ?>
             <div class="flex flex-col gap-[2px]">
                 <p class="text-sm text-garuda-grey">Departure</p>
                 <p class="font-semibold text-lg"><?php echo e(request()->departure); ?></p>
+            </div>
+            <?php else: ?>
+            <div class="flex flex-col gap-[2px]">
+                <p class="text-sm text-garuda-grey">Departure</p>
+                <p class="font-semibold text-lg">-</p>
             </div>
             <?php endif; ?>
 
@@ -17,6 +22,11 @@
                 <p class="text-sm text-garuda-grey">Arrival</p>
                 <p class="font-semibold text-lg"><?php echo e(request()->arrival); ?></p>
             </div>
+            <?php else: ?>
+            <div class="flex flex-col gap-[2px]">
+                <p class="text-sm text-garuda-grey">Arrival</p>
+                <p class="font-semibold text-lg">-</p>
+            </div>
             <?php endif; ?>
 
             <?php if(request()->date): ?>
@@ -24,14 +34,26 @@
                 <p class="text-sm text-garuda-grey">Date</p>
                 <p class="font-semibold text-lg"><?php echo e(request()->date); ?></p>
             </div>
+            <?php else: ?>
+            <div class="flex flex-col gap-[2px]">
+                <p class="text-sm text-garuda-grey">Date</p>
+                <p class="font-semibold text-lg">-</p>
+            </div>
             <?php endif; ?>
+
             <?php if(request()->quantity): ?>
             <div class="flex flex-col gap-[2px]">
                 <p class="text-sm text-garuda-grey">Quantity</p>
                 <p class="font-semibold text-lg"><?php echo e(request()->quantity); ?> people</p>
             </div>
+            <?php else: ?>
+            <div class="flex flex-col gap-[2px]">
+                <p class="text-sm text-garuda-grey">Quantity</p>
+                <p class="font-semibold text-lg">-</p>
+            </div>
             <?php endif; ?>
         </div>
+        <?php endif; ?>
         <div class="flex gap-[26px] mt-[30px]">
             <form id="Filter" action="#"
                 class="flex flex-col w-[320px] shrink-0 h-fit rounded-3xl border border-[#E8EFF7] p-5 gap-5 bg-white">
