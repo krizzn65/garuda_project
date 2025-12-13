@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Interfaces\AirportRepositoryInterface;
 use App\Interfaces\AirlinesRepositoryInterface;
 use App\Interfaces\FlightRepositoryInterface;
+
 
 class FlightController extends Controller
 {
@@ -29,7 +31,7 @@ class FlightController extends Controller
         'date' => $request->date ?? null]);
 
         $airlines = $this->airlineRepository->getAllAirlines();
-        
+
         return view('pages.flight.index', compact('flights', 'airlines'));
     }
 }
