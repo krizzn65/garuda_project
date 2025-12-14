@@ -99,7 +99,7 @@
                     class="accordion group flex flex-col h-fit rounded-[20px] bg-white overflow-hidden has-[:checked]:!h-[75px] transition-all duration-300">
                     <label class="flex items-center justify-between p-5">
                         <h2 class="font-bold text-xl leading-[30px]">Transaction Details</h2>
-                        <img src="assets/images/icons/arrow-up-circle-black.svg"
+                        <img src="{{asset('assets/images/icons/arrow-up-circle-black.svg')}}"
                             class="w-9 h-8 group-has-[:checked]:rotate-180 transition-all duration-300" alt="icon">
                         <input type="checkbox" class="hidden">
                     </label>
@@ -152,7 +152,9 @@
                 <div class="relative flex flex-col justify-end">
                     <img id="Plane-Windshield" src="{{asset('assets/images/backgrounds/plane-windshield.svg')}}"
                         class="absolute top-16 w-full object-contain px-[56px]" alt="image">
-                    <form action="passenger-details.html" class="relative px-[56px] pb-[60px]" id="form-seat">
+                    <form action="{{route('booking.confirmSeat', $flight->flight_number)}}" method="POST" class="relative px-[56px] pb-[60px]">
+                        @csrf
+                        <input type="hidden" name="flight_id" value="{{$flight->id}}">
                         <p class="text-center font-bold text-xl leading-[30px]">{{\Str::ucfirst($tier->class_type)}} Class</p>
                         <div id="Legend" class="flex items-center justify-center mb-[30px] gap-5 mt-5">
                             <div class="flex items-center gap-[6px]">
@@ -208,4 +210,11 @@
             </div>
         </div>
     </main>
+@endsection
+
+@section('scripts')
+<script>
+    const basePrice = {{ $tier->price }};
+</script>
+<script src="{{asset('assets/js/choose-seat.js')}}"></script>
 @endsection
