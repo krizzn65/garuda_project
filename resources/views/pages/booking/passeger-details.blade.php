@@ -84,21 +84,21 @@
                         <div class="flex justify-between">
                             <div>
                                 <p class="text-sm text-garuda-grey">Quantity</p>
-                                <p class="font-semibold text-lg leading-[27px] mt-[2px]">3 People</p>
+                                <p class="font-semibold text-lg leading-[27px] mt-[2px]">{{count($transaction('selected_seats'))}} people</p>
                             </div>
                             <div>
                                 <p class="text-sm text-garuda-grey">Tiers</p>
-                                <p class="font-semibold text-lg leading-[27px] mt-[2px]">Economy</p>
+                                <p class="font-semibold text-lg leading-[27px] mt-[2px]">{{\Str::ucfirst($tier->class_type)}}</p>
                             </div>
                             <div>
                                 <p class="text-sm text-garuda-grey">Seats</p>
-                                <p class="font-semibold text-lg leading-[27px] mt-[2px]">A1, C6, D2</p>
+                                <p class="font-semibold text-lg leading-[27px] mt-[2px]">{{implode(', ', $flight->seats->whereIn('id', $transaction['selected_seats'])->pluck('name')->toArray())}}</p>
                             </div>
                         </div>
                         <div class="flex justify-between">
                             <div>
                                 <p class="text-sm text-garuda-grey">Price</p>
-                                <p class="font-semibold text-lg leading-[27px] mt-[2px]">Rp 1.560.490</p>
+                                <p class="font-semibold text-lg leading-[27px] mt-[2px]">{{'Rp ' . number_format($tier->price, 0, ',', '.')}}</p>
                             </div>
                             <div>
                                 <p class="text-sm text-garuda-grey">Govt. Tax</p>
@@ -106,17 +106,23 @@
                             </div>
                             <div>
                                 <p class="text-sm text-garuda-grey">Sub Total</p>
-                                <p class="font-semibold text-lg leading-[27px] mt-[2px]">Rp 4.849.392</p>
+                                <p class="font-semibold text-lg leading-[27px] mt-[2px]">
+                                    {{'Rp ' . number_format($tier->price * count($transaction['selected_seats']), 0, ',', '.')}}
+                                </p>
                             </div>
                         </div>
                         <div class="flex justify-between items-center">
                             <div>
                                 <p class="text-sm text-garuda-grey">Total Tax</p>
-                                <p class="font-semibold text-lg leading-[27px] mt-[2px]">Rp 3.560.490</p>
+                                <p class="font-semibold text-lg leading-[27px] mt-[2px]">
+                                    {{'Rp ' . number_format($tier->price * count($transaction['selected_seats']) * 0.11, 0, ',', '.')}}
+                                </p>
                             </div>
                             <div>
                                 <p class="text-sm text-garuda-grey">Grand Total</p>
-                                <p class="font-bold text-2xl leading-9 text-garuda-blue mt-[2px]">Rp 844.849.392</p>
+                                <p class="font-bold text-2xl leading-9 text-garuda-blue mt-[2px]">
+                                    {{'Rp ' . number_format($tier->price * count($transaction['selected_seats']) * 1.11, 0, ',', '.')}}
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -137,21 +143,21 @@
                             <p class="font-semibold">Complete Name</p>
                             <div class="flex items-center rounded-full border border-garuda-black py-3 px-5 gap-[10px] focus-within:border-[#0068FF] transition-all duration-300">
                                 <img src="assets/images/icons/profile-black.svg" class="w-5 flex shrink-0" alt="icon">
-                                <input type="text" name="" id="" class="appearance-none outline-none w-full font-semibold placeholder:font-normal" placeholder="Write your complete name">
+                                <input type="text" name="name" id="" class="appearance-none outline-none w-full font-semibold placeholder:font-normal" placeholder="Write your complete name">
                             </div>
                         </label>
                         <label class="flex flex-col gap-[10px]">
                             <p class="font-semibold">Email Address</p>
                             <div class="flex items-center rounded-full border border-garuda-black py-3 px-5 gap-[10px] focus-within:border-[#0068FF] transition-all duration-300">
                                 <img src="assets/images/icons/sms-black.png" class="w-5 flex shrink-0" alt="icon">
-                                <input type="email" name="" id="" class="appearance-none outline-none w-full font-semibold placeholder:font-normal" placeholder="Write your valid email">
+                                <input type="email" name="email" id="" class="appearance-none outline-none w-full font-semibold placeholder:font-normal" placeholder="Write your valid email">
                             </div>
                         </label>
                         <label class="flex flex-col gap-[10px]">
                             <p class="font-semibold">Phone No.</p>
                             <div class="flex items-center rounded-full border border-garuda-black py-3 px-5 gap-[10px] focus-within:border-[#0068FF] transition-all duration-300">
                                 <img src="assets/images/icons/call-black.svg" class="w-5 flex shrink-0" alt="icon">
-                                <input type="tel" name="" id="" class="appearance-none outline-none w-full font-semibold placeholder:font-normal" placeholder="Write your active number">
+                                <input type="tel" name="phone" id="" class="appearance-none outline-none w-full font-semibold placeholder:font-normal" placeholder="Write your active number">
                             </div>
                         </label>
                     </div>
@@ -211,7 +217,7 @@
                             <p class="font-semibold">Nationality</p>
                             <div class="relative flex items-center w-full rounded-full overflow-hidden border border-garuda-black gap-[10px] focus-within:border-[#0068FF] transition-all duration-300">
                                 <img src="{{asset('assets/images/icons/global-black.svg')}}" class="absolute transform -translate-y-1/2 top-1/2 left-5 w-5 shrink-0" alt="icon">
-                                <select name="" id="" class="appearance-none w-full outline-none pl-[50px] py-3 px-5 font-semibold indeterminate:!font-normal">
+                                <select name="passegers[{{$loop->index + 1}}][nationality]" id="" class="appearance-none w-full outline-none pl-[50px] py-3 px-5 font-semibold indeterminate:!font-normal">
                                     <option hidden>Select country region</option>
                                     <option>Singapore</option>
                                     <option>Japan</option>
