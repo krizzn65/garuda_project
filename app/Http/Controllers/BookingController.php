@@ -33,7 +33,14 @@ class BookingController extends Controller
 
     public function confirmSeat(Request $request, $flightNumber){
         $this->transactionRepository->saveTransactionDataToSession($request->all());
+        return redirect()->route('booking.passegerDetails', ['flightNumber' => $flightNumber]);
+    }
 
+    public function passegerDetails(Request $request, $flightNumber){
+        $transaction = $this->transactionRepository->getTransactionDataFromSession();
+        $flight = $this->flightRepository->getFlightByNumber($flightNumber);
+        $tier = $flight->classes->find($transaction['flight_class_id']);
+        return view('pages.booking.passeger-details', compact('flight', 'tier'));
     }
 
     public function checkBooking(){
