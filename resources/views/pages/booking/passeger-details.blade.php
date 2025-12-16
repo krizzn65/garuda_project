@@ -187,17 +187,22 @@
                     <div class="accordion-content p-5 pt-0 flex flex-col gap-5">
                         <label class="flex flex-col gap-[10px]">
                             <p class="font-semibold">Complete Name</p>
-                            <div class="flex items-center rounded-full border border-garuda-black py-3 px-5 gap-[10px] focus-within:border-[#0068FF] transition-all duration-300">
+                            <div class="flex items-center rounded-full border border-garuda-black py-3 px-5 gap-[10px] focus-within:border-[#0068FF] transition-all duration-300
+                            @error('passegers.' . $loop->index . '.name') border-red-500 @enderror">
                                 <img src="{{asset('assets/images/icons/profile-black.svg')}}" class="w-5 flex shrink-0" alt="icon">
                                 <input type="text" name="passegers[{{$loop->index + 1}}][name]" id="" class="appearance-none outline-none w-full font-semibold placeholder:font-normal" placeholder="Write your complete name">
                             </div>
+                            @error('passegers.' . $loop->index . '.name')
+                            <p class="text-sm text-red-500">{{ $message }}</p>
+                            @enderror
                         </label>
                         <div class="flex flex-col gap-[10px]">
                             <p class="font-semibold">Date of Birth</p>
                             <input type="hidden" name="passegers[{{$loop->index}}][date_of_birth]" id="dateOfBirth-{{$loop->index}}" data-index="{{$loop->index}}">
 
                             <div class="flex items-center gap-[10px]">
-                                <label class="relative flex items-center w-full rounded-full overflow-hidden border border-garuda-black gap-[10px] focus-within:border-[#0068FF] transition-all duration-300">
+                                <label class="relative flex items-center w-full rounded-full overflow-hidden border border-garuda-black gap-[10px] focus-within:border-[#0068FF] transition-all duration-300
+                                @error('passegers.' . $loop->index . '.date_of_birth') border-red-500 @enderror">
                                     <img src="{{asset('assets/images/icons/note-add-black.svg')}}" class="absolute transform -translate-y-1/2 top-1/2 left-5 w-5 shrink-0" alt="icon">
                                     <select id="day-select-{{$loop->index}}" name="" 
                                     class="date-select day-select appearance-none w-full outline-none pl-[50px] py-3 px-5 font-semibold indeterminate:!font-normal"
@@ -207,7 +212,8 @@
                                     </select>
                                 </label>
 
-                                <label class="relative flex items-center w-full rounded-full overflow-hidden border border-garuda-black gap-[10px] focus-within:border-[#0068FF] transition-all duration-300">
+                                <label class="relative flex items-center w-full rounded-full overflow-hidden border border-garuda-black gap-[10px] focus-within:border-[#0068FF] transition-all duration-300
+                                @error('passegers.' . $loop->index . '.date_of_birth') border-red-500 @enderror">
                                     <img src="{{asset('assets/images/icons/note-add-black.svg')}}" class="absolute transform -translate-y-1/2 top-1/2 left-5 w-5 shrink-0" alt="icon">
                                     <select id="mont-select-{{$loop->index}}" name="" 
                                     class="date-select month-select appearance-none w-full outline-none pl-[50px] py-3 px-5 font-semibold indeterminate:!font-normal"
@@ -217,7 +223,8 @@
                                     </select>
                                 </label>
 
-                                <label class="relative flex items-center w-full rounded-full overflow-hidden border border-garuda-black gap-[10px] focus-within:border-[#0068FF] transition-all duration-300">
+                                <label class="relative flex items-center w-full rounded-full overflow-hidden border border-garuda-black gap-[10px] focus-within:border-[#0068FF] transition-all duration-300
+                                @error('passegers.' . $loop->index . '.date_of_birth') border-red-500 @enderror">
                                     <img src="{{asset('assets/images/icons/note-add-black.svg')}}" class="absolute transform -translate-y-1/2 top-1/2 left-5 w-5 shrink-0" alt="icon">
                                     <select id="year-select-{{$loop->index}}" name="" 
                                     class="date-select year-select appearance-none w-full outline-none pl-[50px] py-3 px-5 font-semibold indeterminate:!font-normal"
@@ -227,10 +234,14 @@
                                     </select>
                                 </label>
                             </div>
+                            @error('passegers.' . $loop->index . '.date_of_birth')
+                            <p class="text-sm text-red-500">{{ $message }}</p>
+                            @enderror
                         </div>
                         <label class="flex flex-col gap-[10px]">
                             <p class="font-semibold">Nationality</p>
-                            <div class="relative flex items-center w-full rounded-full overflow-hidden border border-garuda-black gap-[10px] focus-within:border-[#0068FF] transition-all duration-300">
+                            <div class="relative flex items-center w-full rounded-full overflow-hidden border border-garuda-black gap-[10px] focus-within:border-[#0068FF] transition-all duration-300
+                            @error('passegers.' . $loop->index . '.nationality') border-red-500 @enderror">
                                 <img src="{{asset('assets/images/icons/global-black.svg')}}" class="absolute transform -translate-y-1/2 top-1/2 left-5 w-5 shrink-0" alt="icon">
                                 <select name="passegers[{{$loop->index + 1}}][nationality]" id="" class="appearance-none w-full outline-none pl-[50px] py-3 px-5 font-semibold indeterminate:!font-normal">
                                     <option hidden>Select country region</option>
@@ -239,6 +250,9 @@
                                     <option>Indonesia</option>
                                 </select>
                             </div>
+                            @error('passegers.' . $loop->index . '.nationality')
+                            <p class="text-sm text-red-500">{{ $message }}</p>
+                            @enderror
                         </label>
                     </div>
                 </div>
