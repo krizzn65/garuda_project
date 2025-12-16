@@ -42,7 +42,10 @@ class TransactionForm
                                 Repeater::make('passenger')
                                     ->relationship('passengers')
                                     ->schema([
-                                        TextInput::make('seat.name'),
+                                        Select::make('flight_seat_id')
+                                            ->label('Seat Name')
+                                            ->relationship('seat', 'name')
+                                            ->required(),
                                         TextInput::make('name'),
                                         TextInput::make('date_of_birth'),
                                         TextInput::make('nationality'),
@@ -54,9 +57,8 @@ class TransactionForm
                     
                 Section::make('Pembayaran')
                     ->schema([
-                        TextInput::make('promo.code'),
-                        TextInput::make('promo.discount_type'),
-                        TextInput::make('promo.discount'),
+                        Select::make('promo_code_id')
+                            ->relationship('promo', 'code'),
                         TextInput::make('payment_status'),
                         TextInput::make('sub_total'),
                         TextInput::make('grand_total'),
