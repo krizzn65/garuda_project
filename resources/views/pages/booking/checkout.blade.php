@@ -112,6 +112,14 @@
                                 </p>
                             </div>
                         </div>
+                        <div>
+                            <p class="text-sm text-garuda-grey">Discount</p>
+                            <p class="font-semibold text-lg leading-[27px] mt-[2px]" id="discount">Rp 0</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-garuda-grey">Promo Code</p>
+                            <p class="font-semibold text-lg leading-[27px] mt-[2px]" id="promo-code"></p>
+                        </div>
                         <div class="flex justify-between items-center">
                             <div>
                                 <p class="text-sm text-garuda-grey">Total Tax</p>
@@ -121,7 +129,7 @@
                             </div>
                             <div>
                                 <p class="text-sm text-garuda-grey">Grand Total</p>
-                                <p class="font-bold text-2xl leading-9 text-garuda-blue mt-[2px]">
+                                <p class="font-bold text-2xl leading-9 text-garuda-blue mt-[2px]" id="grand-total">
                                     {{'Rp ' . number_format($tier->price * count($transaction['selected_seats']) * 1.11, 0, ',', '.')}}
                                 </p>
                             </div>

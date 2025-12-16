@@ -50,7 +50,8 @@ class CheckPromoCode extends Component
     public function dispatchPromoCodeUpdate()
     {
         $this->dispatch('promoCodeUpdated',
-        ['discount' => $this->discount,
+        ['promo_code' => $this->promo_code,
+        'discount' => $this->discount,
         'discount_type' => $this->discount_type
     ]);
     }
