@@ -55,6 +55,38 @@ class BookingController extends Controller
         return view('pages.booking.checkout', compact('flight', 'tier'));
     }
 
+    public function payment(Request $request){
+        $this->transactionRepository->saveTransactionDataToSession($request->all());
+
+        $transaction = $this->transactionRepository->saveTransaction($this->transactionRepository->getTransactionDataFromSession());
+
+        \Midtrans\Config::$serverKey = config('midtrans.serverKey');
+        \Midtrans\Config::$isProduction = config('midtrans.isProduction');
+        \Midtrans\Config::$isSanitized = config('midtrans.isSanitized');
+        \Midtrans\Config::$is3ds = config('midtrans.is3ds');
+
+        $params = [
+            'transaction_details' => [
+                'order_id' => $transaction->code,
+                'gross_amount' => $transaction->grandtotal,
+            ],
+        ];
+
+        $paymentUrl = \Midtrans\Snap::createTransaction($params)->redirect_url;
+
+        return redirect($paymentUrl);
+    }
+
+    public function success(Request $request){
+        $transaction = $this->transactionRepository->getTransactionByCode($request->order_id);
+        
+        if(!$transaction){
+            return redirect()->route('home');
+        }
+
+        return view('pages.booking.success', compact('transaction'));
+    }
+
     public function checkBooking(){
         return view('pages.booking.check-booking');
     }
