@@ -289,7 +289,7 @@
                         <div class="flex items-center flex-nowrap gap-[10px]">
                             <label
                                 class="group relative flex items-center w-full rounded-full py-3 px-5 bg-garuda-bg-dark-grey gap-[10px] has-[:checked]:bg-garuda-orange transition-all duration-300">
-                                <img src="assets/images/icons/note-add-black.svg"
+                                <img src="{{asset('assets/images/icons/note-add-black.svg')}}"
                                     class="w-5 flex shrink-0 group-has-[:checked]:invert transition-all duration-300"
                                     alt="icon">
                                 <span class="font-semibold group-has-[:checked]:text-white">Midtrans Gateway</span>
@@ -297,11 +297,11 @@
                             </label>
                             <label
                                 class="group relative flex items-center w-full rounded-full py-3 px-5 bg-garuda-bg-dark-grey gap-[10px] has-[:checked]:bg-garuda-orange transition-all duration-300">
-                                <img src="assets/images/icons/note-add-black.svg"
+                                <img src="{{asset('assets/images/icons/note-add-black.svg')}}"
                                     class="w-5 flex shrink-0 group-has-[:checked]:invert transition-all duration-300"
                                     alt="icon">
-                                <span class="font-semibold group-has-[:checked]:text-white">Transfer to Bank</span>
-                                <input type="radio" name="payment-method" class="absolute opacity-0 left-1/2" required>
+                                <span class="font-semibold group-has-[:checked]:text-white">Transfer to Bank (Coming Soon)</span>
+                                <input type="radio" name="payment-method" class="absolute opacity-0 left-1/2" disabled>
                             </label>
                         </div>
                     </div>
@@ -313,4 +313,35 @@
             </form>
         </div>
     </main>
+@endsection
+
+@section('scripts')
+<script>
+    window.addEventListener('promoCodeUpdated', event => {
+        const price = parseFloat('{{ $tier->price}}');
+        const quantity = parseInt('{{ count($transaction['selected_seats'])}}');
+        const totalWithoutDiscount = price * quantity * 1.11;
+
+        let newTotal;
+        let totalPromo;
+
+        const promoCode = event.detail(0).promo_code;
+        const discountType = event.detail(0).discount_type;
+        const discountValue = event.detail(0).discount;
+
+        if(discountType === 'percentage'){
+            totalPromo = totalWithoutDiscount * (discountValue / 100);
+        }else{
+            totalPromo = discountValue;
+        }
+
+        newTotal = totalWithoutDiscount - totalPromo;
+
+        document.getElementById('promo-code').innerHTML = promoCode;
+        document.getElementById('grand-total').innerHTML = 'Rp ' + newTotal.toLocaleString('id-ID');
+        document.getElementById('discount').innerHTML = 'Rp ' + totalPromo.toLocaleString('id-ID');
+
+        
+    });
+</script>
 @endsection
