@@ -33,7 +33,7 @@
                         </button>
                         <div id="Departure-Dropdown" class="dropdown-content hidden absolute z-10 top-full mt-4 h-[232px] rounded-[18px] bg-white border border-[#E8EFF7] overflow-y-scroll custom-scrollbar">
                             <div class="flex flex-col justify-center w-[483px] p-5 gap-4 shrink-0">
-                               <?php $__currentLoopData = $airports; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $airport): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                               <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php $__currentLoopData = $airports; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $airport): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                <label class="relative flex items-center rounded-[10px] gap-[10px] p-0 has-[:checked]:p-[10px] has-[:checked]:bg-garuda-bg-grey transition-all duration-300">
                                     <input type="radio" name="departure" id="<?php echo e($airport->iata_code); ?>" class="absolute top-1/2 left-1/2 opacity-0" value="<?php echo e($airport->iata_code); ?>">
                                     <img src="assets/images/icons/airplane-black.svg" class="flex shrink-0 w-[34px]" alt="icon">
@@ -43,7 +43,7 @@
                                     </div>
                                 </label>
                                 <hr class="border-[#E8EFF7]">
-                               <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                               <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
                             </div>
                         </div>
                     </div>
@@ -57,7 +57,7 @@
                         </button>
                         <div id="Arrival-Dropdown" class="dropdown-content hidden absolute z-10 top-full mt-4 h-[232px] rounded-[18px] bg-white border border-[#E8EFF7] overflow-y-scroll custom-scrollbar">
                             <div class="flex flex-col justify-center w-[483px] p-5 gap-4 shrink-0">
-                                <?php $__currentLoopData = $airports; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $airport): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php $__currentLoopData = $airports; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $airport): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                <label class="relative flex items-center rounded-[10px] gap-[10px] p-0 has-[:checked]:p-[10px] has-[:checked]:bg-garuda-bg-grey transition-all duration-300">
                                     <input type="radio" name="arrival" id="<?php echo e($airport->iata_code); ?>" class="absolute top-1/2 left-1/2 opacity-0" value="<?php echo e($airport->iata_code); ?>">
                                     <img src="assets/images/icons/airplane-black.svg" class="flex shrink-0 w-[34px]" alt="icon">
@@ -67,7 +67,7 @@
                                     </div>
                                 </label>
                                 <hr class="border-[#E8EFF7]">
-                               <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                               <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
                             </div>
                         </div>
                     </div>
@@ -117,7 +117,7 @@
         </div>
         <div class="swiper !w-full overflow-x-hidden">
             <div class="swiper-wrapper">
-                <?php $__currentLoopData = $airports; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $airport): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php $__currentLoopData = $airports; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $airport): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <div class="swiper-slide !w-fit first:ml-[calc(((100%-1280px)/2)+75px-24px)]">
                     <a href="#" class="card">
                         <div class="flex items-end w-[230px] h-[280px] shrink-0 rounded-[30px] bg-white overflow-hidden hover:border-2 hover:border-garuda-blue hover:p-[10px] transition-all duration-300">
@@ -132,7 +132,7 @@
                         </div>
                     </a>
                 </div>
-                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
             </div>
         </div>
     </section>

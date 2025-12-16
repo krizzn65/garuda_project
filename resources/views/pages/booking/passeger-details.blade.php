@@ -239,7 +239,6 @@
                             @enderror
                         </div>
                         <label class="flex flex-col gap-[10px]">
-                            <p class="font-semibold">Nationality</p>
                             <div class="relative flex items-center w-full rounded-full overflow-hidden border border-garuda-black gap-[10px] focus-within:border-[#0068FF] transition-all duration-300
                             @error('passegers.' . $loop->index . '.nationality') border-red-500 @enderror">
                                 <img src="{{asset('assets/images/icons/global-black.svg')}}" class="absolute transform -translate-y-1/2 top-1/2 left-5 w-5 shrink-0" alt="icon">
