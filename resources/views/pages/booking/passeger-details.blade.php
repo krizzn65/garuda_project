@@ -245,9 +245,9 @@
                                 <img src="{{asset('assets/images/icons/global-black.svg')}}" class="absolute transform -translate-y-1/2 top-1/2 left-5 w-5 shrink-0" alt="icon">
                                 <select name="passegers[{{$loop->index + 1}}][nationality]" id="" class="appearance-none w-full outline-none pl-[50px] py-3 px-5 font-semibold indeterminate:!font-normal">
                                     <option hidden>Select country region</option>
-                                    <option>Singapore</option>
-                                    <option>Japan</option>
-                                    <option>Indonesia</option>
+                                    <option value="Singapore">Singapore</option>
+                                    <option value="Japan">Japan</option>
+                                    <option value="Indonesia">Indonesia</option>
                                 </select>
                             </div>
                             @error('passegers.' . $loop->index . '.nationality')
