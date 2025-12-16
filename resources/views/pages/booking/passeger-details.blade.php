@@ -13,7 +13,9 @@
             <p class="font-semibold text-white">Back to Choose Seats</p>
         </a>
         <h1 class="font-extrabold text-[50px] leading-[75px] mt-[30px]">Passenger Details</h1>
-        <form action="checkout.html" class="flex gap-[30px] mt-[30px]">
+        <form action="{{ route('booking.savePassegerDetails', $flight -> flight_number) }}" 
+        class="flex gap-[30px] mt-[30px]" method="POST">
+            @csrf
             <div id="Left-Content" class="flex flex-col gap-[30px] w-[470px] shrink-0">
                 <div id="Flight-Info" class="flex flex-col w-[470px] shrink-0 h-fit rounded-[20px] bg-white p-5 gap-5">
                 <h2 class="font-bold text-xl leading-[30px]">Your Flight</h2>
@@ -141,24 +143,37 @@
                     <div class="accordion-content p-5 pt-0 flex flex-col gap-5">
                         <label class="flex flex-col gap-[10px]">
                             <p class="font-semibold">Complete Name</p>
-                            <div class="flex items-center rounded-full border border-garuda-black py-3 px-5 gap-[10px] focus-within:border-[#0068FF] transition-all duration-300">
+                            <div class="flex items-center rounded-full border border-garuda-black py-3 px-5 gap-[10px] focus-within:border-[#0068FF] transition-all duration-300
+                            @error('name') border-red-500 @enderror">
                                 <img src="assets/images/icons/profile-black.svg" class="w-5 flex shrink-0" alt="icon">
                                 <input type="text" name="name" id="" class="appearance-none outline-none w-full font-semibold placeholder:font-normal" placeholder="Write your complete name">
                             </div>
+
+                            @error('name')
+                            <p class="text-sm text-red-500">{{ $message }}</p>
+                            @enderror
                         </label>
                         <label class="flex flex-col gap-[10px]">
                             <p class="font-semibold">Email Address</p>
-                            <div class="flex items-center rounded-full border border-garuda-black py-3 px-5 gap-[10px] focus-within:border-[#0068FF] transition-all duration-300">
+                            <div class="flex items-center rounded-full border border-garuda-black py-3 px-5 gap-[10px] focus-within:border-[#0068FF] transition-all duration-300
+                            @error('email') border-red-500 @enderror">
                                 <img src="assets/images/icons/sms-black.png" class="w-5 flex shrink-0" alt="icon">
                                 <input type="email" name="email" id="" class="appearance-none outline-none w-full font-semibold placeholder:font-normal" placeholder="Write your valid email">
                             </div>
+                            @error('email')
+                            <p class="text-sm text-red-500">{{ $message }}</p>
+                            @enderror
                         </label>
                         <label class="flex flex-col gap-[10px]">
                             <p class="font-semibold">Phone No.</p>
-                            <div class="flex items-center rounded-full border border-garuda-black py-3 px-5 gap-[10px] focus-within:border-[#0068FF] transition-all duration-300">
+                            <div class="flex items-center rounded-full border border-garuda-black py-3 px-5 gap-[10px] focus-within:border-[#0068FF] transition-all duration-300
+                            @error('phone') border-red-500 @enderror">
                                 <img src="assets/images/icons/call-black.svg" class="w-5 flex shrink-0" alt="icon">
                                 <input type="tel" name="phone" id="" class="appearance-none outline-none w-full font-semibold placeholder:font-normal" placeholder="Write your active number">
                             </div>
+                            @error('phone')
+                            <p class="text-sm text-red-500">{{ $message }}</p>
+                            @enderror
                         </label>
                     </div>
                 </div>
