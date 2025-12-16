@@ -16,4 +16,5 @@ route::get('flight/booking/{flightNumber}/choose-seat', [BookingController::clas
 route::post('flight/booking/{flightNumber}/confirm-seat', [BookingController::class, 'confirmSeat'])->name('booking.confirmSeat');
 route::get('flight/booking/{flightNumber}/passeger-details', [BookingController::class, 'passegerDetails'])->name('booking.passegerDetails');
 route::post('flight/booking/{flightNumber}/save-passeger-details', [BookingController::class, 'savePassegerDetails'])->name('booking.savePassegerDetails');
+route::get('flight/booking/{flightNumber}/checkout', [BookingController::class, 'checkout'])->name('booking.checkout');
 Route::get('/booking/check-booking', [BookingController::class, 'checkBooking'])->name('booking.check');
